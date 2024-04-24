@@ -24,6 +24,7 @@
 
 
         <?php
+            $userType = $_POST['userType'];
             $firstName = $_POST['firstName'];
             $lastName = $_POST['lastName'];
             $email = $_POST['email'];
@@ -36,9 +37,9 @@
             if($conn->connect_error){
                 die('Connection Failed : '.$conn->connect_error);
             }else {
-                $stmt = $conn->prepare("insert into registration(firstName, lastName, email, phoneNumber, userName, password)
-                values(?, ?, ?, ?, ?, ?) ");
-                $stmt->bind_param("sssiss", $firstName, $lastName, $email, $phoneNumber, $userName, $password);
+                $stmt = $conn->prepare("insert into registration(userType, firstName, lastName, email, phoneNumber, userName, password)
+                values(?,?, ?, ?, ?, ?, ?) ");
+                $stmt->bind_param("ssssiss", $userType, $firstName, $lastName, $email, $phoneNumber, $userName, $password);
                 $stmt->execute();
                 $stmt->close();
                 $conn->close();
@@ -50,6 +51,4 @@
 </div>
 </body>
 </html>
-    
-
 
