@@ -2,41 +2,33 @@
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-
 $host = "localhost";
 $user = ""; // Your database username with mines
 $pass = ""; // Your database password
 $dbname = ""; // Your database name
-
 $conn = new mysqli($host, $user, $pass, $dbname);
-
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     // Login logic
     $input_user = $_POST["username"];
     $input_pass = $_POST["password"];
 
-    
     $stmt = $conn->prepare("SELECT id, username, password FROM users_new WHERE username = ?");
     $stmt->bind_param("s", $input_user);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $stored_pass = $row["password"];
 
-        
         if (password_verify($input_pass, $stored_pass)) {
-         
+
             $_SESSION["loggedin"] = true;
             $_SESSION["userid"] = $row["id"];
             $_SESSION["username"] = $row["username"];
 
-           
             header("Location: index.html");
             exit;
         } else {
@@ -45,13 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
     } else {
         $login_error = "Invalid username or password.";
     }
-
     $stmt->close();
 }
-
 $conn->close();
 ?> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,30 +53,32 @@ $conn->close();
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="box form-box">
-            <header>Log-In</header><br>
-            <form action="connect.php" method="post" onsubmit="return validForm()">
-                <div class="field input">
-                    <label for="UName" >Username</label>
-                    <input type="text" placeholder="username" name="userName" id="UName">
-                    <span style="color:red" id="user_error"></span>
-                </div>
-                <div class="field input">
-                    <label for="PWord">Password</label>
-                    <input type="password" placeholder="password" name="password" id="PWord"><br>
-                    <span style="color:red" id="pass_error"></span>
-                </div>
-                <div class="field input" style="text-align:center;">
-                    <input type="button" class="btn" name="Register" value="Register" onclick="location.href='registration.html';"></a>
-                </div>
-                <div class="field input">
-                    <input type="submit" class="btn" name="submit" value="Log-In!">
-                </div>
-            </form>
-        </div>
+<div class="container">
+    <div class="box form-box">
+        <header>Sign In</header><br>
+        <header>Log-In</header><br>
+        <form action="connect.php" method="post" onsubmit="return validForm()">
+            <div class="field input">
+                <label for="UName" >Username</label>
+                <input type="text" placeholder="username" name="userName" id="UName">
+                <span style="color:red" id="user_error"></span>
+            </div>
+            <div class="field input">
+                <label for="PWord">Password</label>
+                <input type="password" placeholder="password" name="password" id="PWord"><br>
+                <span style="color:red" id="pass_error"></span>
+            </div>
+            <div class="field input" style="text-align:center;">
+                <input type="submit" class="btn" name="submit" value="Log-In!">
+
+            </div>
+            <div class="field input">
+                <h4> Don't have an account? </h4>
+                <input type="button" class="btn" name="Register" value="Register" onclick="location.href='registration.html';"></a>
+            </div>
+        </form>
     </div>
-    
+</div>
+
 </body>
 </html>
-
