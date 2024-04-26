@@ -1,3 +1,28 @@
+<!-- ?php //commenting php code for database for now
+session_start();
+$userType = $_POST['userType'];
+$firstName = $_POST['firstName'];
+$lastName = $_POST['lastName'];
+$email = $_POST['email'];
+$phoneNumber = $_POST['phoneNumber'];
+$userName = $_POST['userName'];
+$password = $_POST['password'];
+
+//Database connection//
+$conn = new mysqli('localhost', 'root', '', 'connTest');
+if($conn->connect_error){
+    die('Connection Failed : '.$conn->connect_error);
+}else {
+    $stmt = $conn->prepare("insert into registration(userType, firstName, lastName, email, phoneNumber, userName, password)
+                values(?,?, ?, ?, ?, ?, ?) ");
+    $stmt->bind_param("ssssiss", $firstName, $lastName, $email, $phoneNumber, $userName, $password);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
+}
+?> -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,41 +39,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+
 <div class = container>
     <div class="box form-box">
         <h2> Residence Radar ◎ </h2>
         <br>
+
         <br>
         <h3>Welcome to Residence Radar!</h3>
         <h3>Return to the <a href ="index.html">Homepage</a> to LogIn.</h3>
-
-
-        <?php
-            $userType = $_POST['userType'];
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
-            $email = $_POST['email'];
-            $phoneNumber = $_POST['phoneNumber'];
-            $userName = $_POST['userName'];
-            $password = $_POST['password'];
-
-            //Database connection//
-            $conn = new mysqli('localhost', 'root', '', 'connTest');
-            if($conn->connect_error){
-                die('Connection Failed : '.$conn->connect_error);
-            }else {
-                $stmt = $conn->prepare("insert into registration(userType, firstName, lastName, email, phoneNumber, userName, password)
-                values(?,?, ?, ?, ?, ?, ?) ");
-                $stmt->bind_param("ssssiss", $userType, $firstName, $lastName, $email, $phoneNumber, $userName, $password);
-                $stmt->execute();
-                $stmt->close();
-                $conn->close();
-            }
-        ?>
-
 
     </div>
 </div>
 </body>
 </html>
-
