@@ -32,6 +32,9 @@ body{
     flex-direction: column;
     margin-bottom: 10px;
 }
+.form-box form .field h4{
+    text-align: center;
+}
 
 .btn{
     background-color: black;
