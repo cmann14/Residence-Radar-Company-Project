@@ -115,7 +115,7 @@ header .navbar2 a:hover {
     padding: 5px 5px;
     font-weight: bold;
     font-family: Cinzel;
-    text-shadow: 0.3px 0.3px #3e3939
+    text-shadow: 0.3px 0.3px #3e3939;
     box-shadow: 0 -0.5rem 1rem rgba(20, 30, 18, 0.58);
 
 }
