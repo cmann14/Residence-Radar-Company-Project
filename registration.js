@@ -1,10 +1,10 @@
 function validForm() {
-    const a = document.getElementById('FName').value.trim();
-    const b = document.getElementById('LName').value.trim();
-    const c = document.getElementById('Email').value.trim();
-    const d = document.getElementById('Phone').value.trim();
-    const e = document.getElementById('UName').value.trim();
-    const f = document.getElementById('PWord').value.trim();
+    const a = document.getElementById('firstName').value.trim();
+    const b = document.getElementById('lastName').value.trim();
+    const c = document.getElementById('email').value.trim();
+    const d = document.getElementById('phoneNumber').value.trim();
+    const e = document.getElementById('userName').value.trim();
+    const f = document.getElementById('password').value.trim();
 
     // Error message elements
     const fname_error = document.getElementById('fname_error');
@@ -31,6 +31,7 @@ function validForm() {
     // Validate first name
     if (a === "" || b === "" || c === "" || d === "" || e === "" || f === "") {
         alert("You must complete the fields");
+        return false;
     }
     if (a === "" ) {
         fname_error.innerText = "Please Enter your first name.";
@@ -80,6 +81,3 @@ function validForm() {
     return true;
 
 }
-
-
-

@@ -1,4 +1,4 @@
-<!-- ?php //commenting php code for database for now
+<?php //commenting php code for database for now
 session_start();
 $userType = $_POST['userType'];
 $firstName = $_POST['firstName'];
@@ -8,19 +8,20 @@ $phoneNumber = $_POST['phoneNumber'];
 $userName = $_POST['userName'];
 $password = $_POST['password'];
 
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
 //Database connection//
-$conn = new mysqli('localhost', 'root', '', 'connTest');
+$conn = new mysqli('localhost', 'root', '', 'residence radar');
 if($conn->connect_error){
     die('Connection Failed : '.$conn->connect_error);
 }else {
-    $stmt = $conn->prepare("insert into registration(userType, firstName, lastName, email, phoneNumber, userName, password)
-                values(?,?, ?, ?, ?, ?, ?) ");
-    $stmt->bind_param("ssssiss", $firstName, $lastName, $email, $phoneNumber, $userName, $password);
+    $stmt = $conn->prepare("insert into registration (userType, firstName, lastName, email, phoneNumber, userName, password) VALUES (?,?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $userType, $firstName, $lastName, $email, $phoneNumber, $userName, $password);
     $stmt->execute();
     $stmt->close();
     $conn->close();
 }
-?> -->
+?>
 
 
 <!DOCTYPE html>
